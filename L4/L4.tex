@@ -1,0 +1,113 @@
+\documentclass[a4paper]{article}
+\title{L4}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	\section{Method of characteristics}
+	\begin{equation}
+		a\left( x,y \right) u_x+b\left( x,y \right) u_y=c(x,y)
+	\end{equation} 	
+	$x,y\in \Omega s\subset \mathbb{R}^2$ 
+
+	Transport =$u_t+au_x=0$. look at $\mathbf{v}=\left( a,1 \right) ^{t}$
+
+	$au_x+u_t=\mathbf{v}\cdot\nabla _{u,t}u=0$
+
+	$\nabla u$ perpendicular to $\mathbf{v}$, also, $\nabla u$ is perpendicular to level lines of $u$ on which $u$ is constant $\implies u$ is a constant on lines parallel to $v$. 
+
+	Figure missing
+
+	consider $u(t,k+at)$, $\frac{d}{dt}u(t,k+at)=(u_t+au_x)(t,k+at)=0$. 
+
+	Step2: $u(t,k+at)=u(0,k)$ which is usually assigned
+
+	Step3: $u(t,x)=u(0,at-x)$ if $u\left( 0,x \right) =f\left( x \right) $ given , then $u\left( t,x \right) =f\left( at-x \right) $. 
+
+	Figure missing
+
+	How to assign an initial daturn? Assign it on a curve $\gamma\left( \tau \right) $, $\tau\in \mathbb{R}$ such that $\gamma\left( \tau \right) $intercept the characteristics curves only once for each $k$. 
+	
+	In general, $a(x,y)u_x+b(x,y)u_y=c(x,y)$, $x,y\in \Omega$, $\gamma\left( \tau \right) =\left( \gamma_1\left( \tau \right) ,\gamma_2\left( \tau \right)  \right) ^{t}$. 
+
+	Figure missing
+
+	Assumption: \begin{enumerate}
+		\item $a,b,c \in C^1\left( \Omega \right) a^2+b^2\neq 0 \forall x,y$. 
+		\item $fs\subset C^{1}$
+		\item $\gamma\in C^{1}$, $\left| \gamma' \right| \neq 0$.
+	\end{enumerate}
+	Procedure
+	\begin{enumerate}
+		\item Compute characteristic curves
+		\item Solve along characteristic curves
+		\item Reconstruct solutions (if possible)
+	\end{enumerate}
+	Step 1: they are curves $\alpha_1\left( s \right) =(a_1\left( s \right) ,\alpha_2\left( s \right) )^{T}$
+	. Such that $u\left( \alpha_1\left( s \right) ,\alpha_2\left( s \right)  \right)  $ satiefies
+	\begin{equation}
+		\frac{du\left( \alpha\left( s \right)  \right) }{ds}=\alpha_1\left( s \right) u_x+\alpha_2'\left( s \right) u_y:=a\left( \alpha\left( s \right) \right)u_x+b\left( \alpha\left( s \right)  \right) u_y =c\left( \alpha\left( s \right)  \right)  
+	\end{equation} 
+	\begin{definition}[Characteristic system]
+		Characteristic system was defined as 
+		\begin{equation}
+			\begin{cases}
+				\alpha_1'\left( s \right) =a\left( \alpha\left( s \right)  \right) \\
+				\alpha_2'\left( s \right)=b\left( \alpha\left( s \right)  \right)  
+			\end{cases}
+		\end{equation} 
+		Initial condition wwas defined as 
+		\begin{equation}
+			\begin{cases}
+			\alpha_1'\left( s \right) =\gamma_1\left( \tau \right) \\
+			\alpha_2'\left( 0 \right)=\gamma_2\left( \tau\right)  
+			\end{cases}
+		\end{equation} 
+
+	\end{definition}
+		By ODE, $\exists ! a,b$ are $C^1$, $\gamma\in C^{1}$, $\exists  !$ local solution for characteristic systems. 
+
+		Step2: Solve on characteristics
+		\begin{align*}
+			\frac{d}{ds}u\left( \alpha\left( s \right)  \right)=c\left( \alpha\left( s \right)  \right)  \text{integtrate in s} \\
+			u\left(\alpha\left( s \right)  \right)-u\left( \alpha\left( 0 \right)  \right) =\int^{s}_{0} c\left( \alpha\left( \sigma \right) \right)d\sigma\\ 
+			u\left( \alpha\left( s \right)  \right)-f\left( \tau \right) =\int^{s}_{0} c\left( \alpha\left( \sigma \right)  \right) d\sigma  
+		\end{align*} 
+		Precisely 
+		\begin{equation}
+			u\left( \alpha\left( \tau,s \right)  \right) =f\left( \tau \right) +\int^{s}_{0} c\left( \alpha\left( \tau,\sigma \right)  \right) d\sigma 
+		\end{equation} 
+		Step3: Reconstruct solution
+		\begin{equation}
+			x=\alpha_1\left( \tau,s \right) ,y=\alpha_2\left( \tau,s \right) 
+		\end{equation} 
+		I want this to be invertable near $\gamma\left( \tau \right) $, or $s=0$. 
+
+		Implicit function theorem tells me that the determinant of Jacobian
+		\begin{equation}
+			 \text{det}\frac{\partial \alpha}{\partial \left( \tau,s \right) } \bigg|_{s=0}\neq 0
+		\end{equation} , then $\tau$ is invertable. 
+\end{document}

@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+\title{L3}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	Tools from calculus:
+	Laplace equation: 
+	\begin{equation}
+		\begin{cases}
+			\Delta u=0 \text{ in }\Omega \subset \mathbb{R}^{n}\\
+			u\left( x \right) =0 \text{for} x\in \partial\Omega
+		\end{cases}
+	\end{equation} 
+	In general $\Omega$ is an open set, and $\partial \Omega$ is boundary set, it has some regularity. 
+
+	\begin{definition}[]
+		$\Omega$ is a $C^{1} $ domain, if $\forall  x\in \partial \Omega$, there exists a system of coordinates $\left( y_1,\ldots,y_{n-1},y_{n} \right) \equiv\left( y',y_{n} \right) $, where$y'$ is the vector contianing all $y$s. with origin at $x$, a ball $B\left( x \right) $ around x and a function $\varphi$ in a neighbourhood $N\subset \mathbb{R}^{n-1}$ of $y'=0'$ such that $\varphi$ is $C^{1} $ in the neighbourhood , $\varphi\left( 0' \right) =0$ and two things happened. 
+	\end{definition}
+	\begin{enumerate}
+		\item $\partial\Omega \cap B\left( x \right) =\left\{ \left( y',y_{n} \right) :y_{n}=\varphi\left( y' \right) ,y'\in \mathcal{N} \right\} $
+		\item $\Omega \cap B\left( x \right) =\left\{ y',y_{n}:y_n>\varphi\left( y' \right) y'\in \mathcal{N} \right\} $
+	\end{enumerate}
+	\begin{remark}
+		1 says that locally, $\partial \Omega$ is the graph of the $C^{1}$ function . 2 says that locally $\Omega$ lies on one side of the graph of $\varphi$. 
+	\end{remark}
+	\begin{remark}
+		A $C^{1}$ domain does not have corners, and the tangent line (n=2), the tangent plane (n=3) is always well defined. 
+	\end{remark}
+\begin{figure}[H]
+    \centering
+    \incfig{l3f1}
+    \caption{L3F1}
+    \label{fig:l3f1}
+\end{figure}
+If $\varphi \in \mathbb{C}^{k} \implies \mathbb{C}^{k} -domain\left( c^{\infty} \text{smooth domain} \right) $
+
+If $\varphi\in \text{Lip}\implies \text{Lipschitz domain}$
+\begin{figure}[H]
+    \centering
+    \incfig{l3f2}
+    \caption{L3F2}
+    \label{fig:l3f2}
+\end{figure}
+Integration by parts
+
+$\Omega \in  \mathbb{R}^{n} $ is $\mathbb{C}^{1}$, take a vector fields $F=\left( F_1,\ldots F_{n} \right): \Omega\mapsto \mathbb{R}^{n}, F\in C^{1}\left( \Omega \right) $, we have Gauss divergence theorem. 
+\begin{equation}
+	\int_\Omega \text{div}F dx=\int_{\partial \Omega}F\cdot \nu d\sigma
+\end{equation} 
+Where $\nu$ is the outer normal vector. and $d\sigma=\sqrt{1+\left|\nabla \varphi\left( y' \right)  \right| } dy'$ it is the surface measure locally defined. 
+
+The consequences are :
+	Take $v\cdot F$ where $v\in C^{1}\left( \Omega \right) $ (scalar). 
+	\begin{equation}
+		\int_\Omega\text{div}\left( vE \right) =\int_{\partial\Omega} vF\cdot \nu	
+	\end{equation} 
+\begin{equation}
+		\int_{\Omega}^{}\text{div}\left( vF \right)   =\int_\Omega v\text{div} F+\int_\Omega \nabla v \cdot F=\int_{\partial\Omega}vF\cdot \nu
+\end{equation} 
+		Special case $F=\nabla u$
+		\begin{equation}
+			\text{div} \nabla u=\Delta u
+		\end{equation} 
+		\begin{equation}
+			\int_\Omega v\Delta u=-\int_\Omega\nabla v\cdot \nabla u +\int_{\partial \Omega}v \partial_\nu u 
+		\end{equation} 
+		\begin{enumerate}
+			\item $\nu=1$: this is the Newmann boundary condition.  
+		\begin{equation}
+			\int_\Omega\Delta u=\int_{\partial\Omega} \partial_{\nu}u
+		\end{equation} 
+	\item $v=u$
+	 \begin{equation}
+		 \int_{\Omega}^{}u \Delta u=-\int_\Omega\left|\nabla u \right|^2  +\int_{\partial\Omega} u\partial_\nu u
+		\end{equation} 
+		\end{enumerate}
+		
+Two useful theorems 
+\begin{theorem}[ODES]
+	Fix $t_0\in \mathbb{R}$, $y_0\in \mathbb{R}^{n}$ $ a,b >0$, and define 
+	\begin{equation}
+		R=\left\{ \left( t,y \right) :t_0\le t\le t_0+a,\left|y-y_0 \right|\le b  \right\} 
+	\end{equation} 
+	Consider the ODE
+	\begin{equation}
+		y'\left( t \right) =f\left( t,y\left( t \right)  \right) ,y\left( t_0\right)=y_0
+	\end{equation} 
+	Where f is a ctn on R and uniformly Lipschitz in y ($\exists L>0:\left|f\left( t,y_1 \right) -f\left( t,y_2 \right) \right|\le L\left( y_1-y_2 \right)  \forall t_1,y_1,y_2 $ (with maximum equal to $M\ge 0$ in $\mathbb{R}$)
+	Then (ODE) has a unique solution $y\left( t \right) $ defined on $\left[ t_0,t_0+T \right] $ where $T=\text{min}\left\{ a,\frac{b}{M} \right\} $
+\end{theorem}
+\begin{theorem}[Inverse function theorem]
+	Let $F:R^{n}\mapsto \mathbb{R}^{n }$ be $C^{1} $ assume $DF\left( a \right)  $ is invertable for some $a\in \mathbb{R}^{n}$, Where $DF$ is a matrix of $[\partial_{x_i}F_j]$. for some $a\in \mathbb{R}^{n}$ let $b=F\left( a \right) $, then 
+	\begin{enumerate}
+		\item $\exists $ $U,V$ open in $\mathbb{R}^{n}$ such that $a\in U,b\in V$ F is bijecytion on $U$, $F\left( u \right) =V$
+		\item If G is the inverse of F in V(it exists by 1) defined by $G\left( F\left( x \right)  \right) =x$ then $G\in C^{1}\left( v \right) $
+			Roughly: a $C^{1} $ mapping F is invertable and in a neighbourhood of a point $a\in \mathbb{R}^{n}$ at which the matrix $DF\left( a \right)  $ is invertable. 
+
+	\end{enumerate}
+			Consequence: write the equation $Y=F\left( x \right) $ componentwise $Y_i=F_i\left( x_1,\ldots x_n \right) $, the system can be solved for $x_1,\ldots,xn$ in terms of $y_1,\ldots,y_n$ if we restrict $x$ and $y$ to a small neighbourhood of $a$ and $b$ . 
+
+			The solutions are unique and $C^{1}$. 
+\end{theorem}
+\end{document}
+

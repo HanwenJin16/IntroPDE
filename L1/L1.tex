@@ -1,0 +1,173 @@
+\documentclass[a4paper]{article}
+\title{Lecture 1}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{url}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorm}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	The personal webpage of the lecture is \url{wwwf.imperial.ac.uk/~mcptozel/PDE.thml} His website is \url{m.coti-zelati@imperial.ac.uk}	
+
+	There are four referece in the syalibus. And three coursework. Office hour is wednesday 11-12. 
+
+	\begin{definition}[PDE]
+		PDE is an equation of the form 
+		\begin{equation}
+			f\left( x_1,\ldots x_m,\ldots , u_{x_n}, u_{x_1x_1},  \ldots u_{x_nx_n}\ldots u_{x_1x_2}, \ldots\right) 
+		\end{equation} 
+		The unknpown is a function $u=u\left( x_1 , \ldots , x_n \right) $ $u_{x_1}, u_{x_2}\ldots$ are partial derivatives. 
+	\end{definition}
+	\begin{definition}[Order of PDE]
+		It is the highest order of differentiation. 
+	\end{definition}
+	\begin{definition}[Linearity]
+		$F$ is linear in $u$ and its partial derivatives. e.g$u_{x_1}+u=x_2^2$. is linear first order . $u_{x_1x_1}+uu_{x_2}=0$ has a quadratic piece, so it is non linear. And it is second order.  
+	\end{definition}
+	Nonlinear PDEs can also have 
+	\begin{itemize}
+		\item Semilinear: $F$ is non-linear wrt u, but linear wrt partial derivatives. e.g. $u_{x x}=u^3$. 
+		\item Quasilinear: F is linear in the highest differntiation order, but non-linear in other derivatives. e.g. $u_{x x }+\left|u_x \right|^2=u^3 $
+		\item Fully nonlinear: F is non-linear in the highest order. $\left|u_{x_1}^2\right| +\left|u_{x_2} \right|^2=x_1^2+x_2^2  $. 
+	\end{itemize}
+	Linear PDEs/Homogeneous PDES will be biggest part of this course.
+
+	\begin{definition}[Linear operator]
+		A linear differntial operator $L$ is a sum of basic derivatives. $L$ acts on functions in a linear way, such that $L\left( u+v \right) =L\left( u \right) +L\left( v \right) \forall u,v$. $L\left( cu \right) =cL\left( u \right) \forall c \in \mathbb{R}$. 
+	\end{definition}
+	\begin{definition}[Homogenoeous]
+		Each term involves $u$ and or its partial derivatives. 
+	\end{definition}
+	\begin{example}
+$u_{x x }+\frac{u}{1+x^2}=0$ is linear and homoge	
+	\end{example}
+	\begin{example}
+	$L=\partial _{x x } \text{for any} u,v\in C^2 \mathbb{R},c\in \mathbb{R}$. 
+something is missing here
+		$L\left( u+v \right) =\\frac{\partial  }{\partial x} 	$
+	\end{example}
+	\begin{theorem}[Superposition principle]
+		If $u_1, \ldots, n_{n}$ is a solution of $L\left( u \right) =0$, which is a linear homogeneous PDE, then $u=\sum_{n=1}^{k} c_nu_n $ is also a solution. 
+	\end{theorem}
+	Proof: $L\left( u \right) =L\left( c_1u_1, \ldots,c_ku_k \right) =L\left( c_1u_1, \ldots , c_{k-1}u_{k-1} \right) +L(c_{k}u_k)=0$, repeat this process, you will get $L\left( u \right) =L\left( c_1u_1 \right) + \ldots + L\left( u_nu_n \right) $ which all of the terms are 0. so this is also a solution. 
+
+	The existance of unique solution requires 
+	\begin{equation}
+		x'=x
+	\end{equation} 
+	\begin{equation}
+		x\left( 0 \right) =x_0
+	\end{equation} 
+	The top bit may be wrong. 
+
+	\begin{example}
+		Heat equation: $u_t=u_{x x},$ $(t,x)\in D\subset R^2$
+		Classical solution: $u\in \mathbb{C}^2_{t,x}$ and 
+		need to hold forall $t,d \in D$
+		\begin{itemize}
+			\item 
+		$u\left( x,t \right) =t+\frac{1}{2}x^2$ in $\mathbb{R}^2$. 
+	\item
+		$u_t=1$
+	\item 
+		$u_x=1$, $u_{x x }=1$. 
+	\item
+		$\tilde{u}\left( t,x \right) =\exp\left( -\frac{x^2}{4t} \right) / \left( 2\sqrt{\pi t}  \right) \text{ in }\left( 0,\infty \right) \times  \mathbb{R} $. 
+		\end{itemize}
+
+		Different behaviour as $\left|x \right|\to \infty $. Also $u+\tilde{u}$ is a solution by superposition principle. 
+	\end{example}
+
+	There is no statement like LIpchiz's result, so in this course we will have numberous example. 
+\subsection{Boundary condition}%
+\label{sub:djflka}
+\begin{itemize}
+	\item Dirichlet Boundary condition: assign value of $u$ along the boundary. E.g. to find the temperature, assign the temperature in the walls. 
+	\item Newmann: assign the normal derivative alone the boundary. ($\nabla =\text{outer normal}$, $\frac{\partial u}{\partial \nu} =\nabla u . \nu$)
+	\item Mixed: D on some part of boundary, N on the other. 	
+\end{itemize}	
+\begin{example}
+	For the heat equation again, 
+	\begin{itemize}
+		\item $u_t=U_{x x }$in $\left\{ t>0 \right\} \times \left( 0,1 \right) $
+		\item $u\left( 0,x \right) =f\left( x \right) $
+		\item $u\left( t,0 \right) =0 \forall t$
+		\item $u\left( t,1 \right) =0 \forall t$. This is an example of a homogeneous boundary condition. 
+	\end{itemize}
+	We will give a list of PDEs 
+	\begin{enumerate}
+		\item Transport equation $u_t+v.\nabla u=0$, it is 1st order. $u$ is the concentration in a channel and $v$ is the given velocity of the steam. 
+		\item Heat/Diffusion 2nd order:$u_t-D\Delta u=0$. Where $\Delta = \text{Laplacian}=\frac{\partial  }{\partial x_1x_1} +\frac{\partial ^2}{\partial x_2x_2} $, $u$ is the temperature in the medium. 
+		\item Wave equation 2nd order , $u_{t t }-c^2\Delta u =0$. $u$ in 1D is the vertical displacement of the string. In 2D it is like the vibration of the drum.  
+\begin{figure}[H]
+    \centering
+    \incfig{l2f1}
+    \caption{L2F1}
+    \label{fig:l2f1}
+\end{figure}
+Note this is 2nd order we need the velocity of displacement and also the initial displacement to solve this equation
+
+Also note that the heat equation will become smooth over time, whereas the wave equation will not become smooth.
+\item Laplace equarion: $\Delta u=0$
+\item Possion equation : $\Delta u=f$ Laplace and Possion equation are the steady state solutuion of wave and heat equation. 
+\item Burger's equation: $u_t +uu_x=0$ or $u_{x x }$ this is similar to transport, except the velocity is given by $u$ itself. it is 1st order nonlinear.(shocks). 
+\item Navier-Stokes Equations$\frac{\partial }{\partial t } u+\left( u\cdot \nabla  \right) u=-\nabla p+\Delta u$. $\text{div}u=0$. $u=\left( u_1,u_2,u_3 \right) :\left( 0,\infty \right) \times \mathbb{R}^3\to \mathbb{R}^3=\text{velocity of fluid}$, $P=P\left( t,x \right) :\left( 0,\infty \right) \times \mathbb{R}^3\to \mathbb{R}=\text{Pressure}$. 
+	\end{enumerate}
+
+	Differential Operators
+	\begin{itemize}
+		\item 
+	$\nabla u=\begin{pmatrix} d_{x_1}u \\ \vdots \\d_{x_n}u \end{pmatrix} $
+\item
+	$\text{div} \mathbf{F}=\partial_{x_1}F_1+ \ldots +\partial_{x_n}F_n$
+\item
+	$\Delta u=\partial_{x_1x_1}u+\ldots+\partial_{x_nx_n}$
+\item
+	for n=3 $\text{curl} \mathbf{F}=\begin{pmatrix} i&j&k\\\partial_x&\partial_y&\partial_z\\F_1&F_2&F_3 \end{pmatrix}$. 
+	\end{itemize}
+	PDE from modelling 
+	\begin{enumerate}
+		\item Simple transport: consider fluid flowing at a constant rate $c>0$, in a horizontal pipe in the x-direction. $u\left( t,x \right) =\text{concentration of a substance}$
+\begin{figure}[H]
+    \centering
+    \incfig{l2f2}
+    \caption{L2F2}
+    \label{fig:l2f2}
+\end{figure}
+From figure \ref{fig:l2f2}, we can see that 
+\begin{equation}
+	\int_{b}^{0} u\left( t,x \right) \text{dx}=\int_{b+ch}^{ch} u\left( t+h,x \right) \text{dx}  
+\end{equation} 
+Differntiate it wrt $b$, 
+\begin{equation}
+	u\left( t,b \right) =u\left( t+h,b+ch \right) 
+\end{equation} 
+Take derivative in $h$, 
+\begin{equation}
+	0=u_t+cu_x
+\end{equation} 
+	\end{enumerate}
+\end{example}
+\end{document}
+

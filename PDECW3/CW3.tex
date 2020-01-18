@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+\title{Coursework 3}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+\usepackage{url}
+\begin{document}
+	\maketitle
+	\textbf{Question 3} Since $f=0$,we insert $g\left( x \right) $ into $u\left( x,t \right) =\frac{f\left( x+ct \right) +f\left( x-ct \right) }{2}+\frac{1}{2c}\int_{x-ct}^{x+ct} g\left( s \right) ds $. 
+	\begin{align*}
+		u\left( x,t \right) &= \frac{1}{2c}\int_{x-ct}^{x+ct} g\left( s \right) ds  \\
+		&= \frac{1}{4}\int_{x-ct}^{x+ct} s\exp\left( -s^2 \right) ds  \\
+		&= \frac{1}{4}\left[ -\frac{1}{2}\exp\left( -s^2 \right)  \right]^{x+ct}_{x-ct}  \\
+		&= \frac{1}{8}\left[ \exp\left[- \left( x-ct \right) ^2\right]-\exp\left[- (x+ct)^2 \right]    \right]  
+	\end{align*} 
+	If we change the $g$ in interval $\left( -1,1 \right) $, note that the $u$ value only depends on the $g $ value in $(x-2t,x+2t)$. Also note that $t>0$, so if $x-2t>1\implies x>1+2t$ or $x+2t<-1\implies x<-1-2t$, then the solution is not affected. So the region affected is $\left( -1-2t,1+2t \right) $. 
+
+	\textbf{Question 7} Since $\Omega$ is an open set, for $x_0$ and $y_0$ there exists $r_1$, $r_2$ such that $B\left( x_0;r_1 \right)\subset \Omega $ and $B\left( y_0,r_2 \right) \subset \Omega$. By max/min value principle, \begin{gather*}
+		\underbrace{\min_{z\in \partial B\left( x_0,r_1 \right) }u\left( z \right) }_{\text{denote A}}\le u\left( x_0 \right) \le \underbrace{\max_{z\in \partial B(x_0,r_1)}u\left( z \right) }_{B}\\
+		\underbrace{\min_{z\in \partial B\left( y_0,r_2 \right) }u\left( z \right) }_{C}\le u\left( y_0 \right) \le\underbrace{\max_{z\in \partial B\left( y_0,r_2 \right) }u\left( z \right) }_{D}
+	\end{gather*} 
+	And if there is a $=$ rather than $<$ , then $u$ is constant within the ball, and one can show that $u$ is constant throughout $\Omega$, since $\Delta u=0$ in $\Omega$, and $\nabla u=\vec{0} $ in the ball, then $u\left( x_0 \right) +u\left( y_0 \right) =M$, and any $x,y$ satisfy $u\left( x \right) +u\left( y \right) =M$. Now let's prove the case when where isn's a equality. 
+
+	\begin{theorem}[Higher dimensional Intermediate Value theorem]
+		If $S$ is a path-connected subset of $\mathbb{R}^{n}$, and $u:S\to \mathbb{R}$ is continuous. If $a,b \in S$ and 
+		\begin{equation}
+			u\left( a \right) <t<u\left( b \right) 
+		\end{equation} 
+		Then there exist a point $c\in S$ such that $f\left( c \right) =t$
+	\end{theorem}
+	This theorem was proofed in \url{http://www.math.toronto.edu/courses/mat237y1/20189/notes/Chapter1/S1.5.html}. Also A ball is path-connected.
+
+	Now we denote $\varepsilon=\min\left\{ u\left( y_0 \right) -C,D-u\left( y_0 \right) ,u\left( x_0 \right) -A,B-u\left( x_0 \right)  \right\} $. And choose $E\in (0,\varepsilon)$. 
+
+	Clearly $u\left( x_0 \right) -E\in \left( A,B \right) $, $\exists x$ such that $u\left( x \right) =u\left( x_0 \right) -E$. 
+
+	Similarly $u\left( y_0 \right) +E\in \left( C,D \right) $, $\exists y$ such that $u\left( y \right) =u\left( y_0 \right) +E$. 
+
+	We have $u\left( x \right) +u\left( y \right) =u\left( x_0 \right) -E+u\left( y_0 \right) +E=M$. And there are uncountably infinity number in $\left( 0,\varepsilon \right) $. And each number correspond to a different set of $x,y$ so there is infinitely many pairs $\left( x,y \right) \in \Omega\times \Omega$ such that $u\left( x \right) +u\left( y \right) =M$. QED
+
+	\textbf{Question 9}: (a):we define the function $\phi\left( r \right) =\frac{1}{n\omega_nr^{n-1}}\int_{\partial B\left( x,r \right) }u d\sigma$. Where $\omega_n$ is the volume of an $n$ dimensional unit sphere. Clearly the $n\omega_n r^{n-1} $ is the surface area of $\overline{B\left( x,r \right) }$. Clearly $\lim_{r \to 0} \phi\left( r \right) =u\left( x \right) $, and $\phi\left( r \right)  \equiv \not\int_{\partial B\left( x,r \right) }ud\sigma$. Now we compute $\phi'\left( r \right) $. 
+	\begin{align*}
+		\phi\left( r \right) &=\frac{1}{n\omega_n r^{n-1}}\int_{\partial B\left( x,r \right) }u\left( \sigma \right) d\sigma\\
+		\implies \phi\left( r \right) &= \frac{1}{n\omega_n}\int_{\partial B\left( 0,1 \right) }u\left( x+r\mathbf{ \omega} \right) d\mathbf{ \omega} \\
+		\implies \phi'_r&= \frac{1}{n\omega_n}\int_{\partial B\left( 0,1 \right) }\nabla u\cdot\mathbf{ \omega}d\mathbf{ \omega} \\
+		&= \frac{1}{n\omega_n r^{n-1}}\int_{\partial B\left( x,r \right) }^{} \frac{\partial u}{\partial \eta} d\sigma  \\
+		&= \frac{1}{n\omega_nr^{n-1}}\int_{B\left( x,r \right) }^{} \Delta u dy  \\
+	\end{align*} 
+	But we know that $\Delta u \le 0$, so 
+	\begin{align*}
+		\phi'\left( r \right) &= \frac{1}{n\omega_n r^{n-1}}\int_{B\left( x,r \right) }\Delta u dy\\
+		&\le 0\\
+		&\implies \phi\left( 0 \right) \ge \phi\left( r \right) \forall r>0\\
+		&\implies u\left( x \right) \ge \not\int_{\partial B\left( x,t \right) }ud\sigma
+	\end{align*} 
+	
+	(b): We will show that if $x_0\in \Omega$ is a minimum, then $u$ is a constant in $\Omega$ and $\partial \Omega$. 
+	
+	First, we prove that $u\left( x \right) \ge \not \int_{B\left( x,r \right) }udy$. 
+	\begin{align*}
+		\frac{1}{\omega_n r^{n}}\int_{ B\left( x,r \right) }udy&= \int_{0}^{r} \int_{\partial B\left( x,s \right) }^{}ud\sigma ds    \\
+		&\le \frac{1}{n\omega_n }\int^{r}_{0} n\omega_n s^{n-1}u\left( x \right) ds  \\
+		&=\frac{1}{\omega_n r^{n}} \omega_n r^{n}u\left( x \right)  \\
+		&= u\left( x \right)  
+	\end{align*} 
+
+	Then suppose $x_0 \in \Omega$ the point where $u$ is minimum. Then $u\left( x \right) \ge u\left( x_0 \right) \forall x\in \Omega$. We first take $B\left( x_0,r_0 \right) \subset \Omega$. Suppose there exist point $z$ such that $u\left( z \right) > u\left( x_0 \right) $, then $u\left( z \right) -u\left( x \right) =\epsilon>0$. Since $u \in C^{2}\left( \Omega \right) $, there exist $\delta$ such that if $x\in B\left( z,\delta \right)\subset \Omega $, then $|u\left( x \right) -u\left( z \right)| <\frac{\epsilon}{2}$. This implies $u\left( x \right) -u\left( x_0 \right) >\frac{\epsilon}{2}\forall x\in B\left( z,\delta \right) $. We now choose $\delta'<\delta$ such that $B\left( z,\delta' \right) \subset B\left( x_0,r_0 \right) $. And we compute $\frac{1}{\left| B\left( x_0,r_0 \right)  \right| }\int_{B\left( x_0,r_0 \right) }u\left( y \right) dy$. 
+	\begin{align*}
+                \frac{1}{\left| B\left( x_0,r_0 \right)  \right| }\int_{B\left( x_0,r_0 \right) }udy&= \frac{1}{\left| B\left( x_0,r_0 \right)  \right| }\left[ \int_{B\left( x_0,r_0 \right) / B\left( z,\delta' \right) }^{}\underbrace{ u\left( y \right)}_{\ge u\left( x_0 \right) }dy+\int_{B\left( z,\delta' \right) }\underbrace{u\left( y \right) }_{>u\left( x_0\right)+\frac{\epsilon}{2}}  dy   \right]  \\
+                        &> \frac{1}{\left| B\left( x_0,r_0 \right)  \right| }\int_{B\left( x_0,r_0 \right) }udy
+    \end{align*}
+    This contradicts the proposition we proved in part (a). So there is no point $z$ in the ball such that $u\left( z \right) >u\left( x_0 \right) $, and we know $u\left( z \right) \ge u\left( x_0 \right)\forall z\in B\left( x_0,r_0 \right)  $, so $u\left( z \right) =u\left( z_0 \right) $
+
+    Now we consider an arbirary point $q\in \Omega$, we can find $y_0, \ldots,y_n$ and balls such that $y_j \in \overline{B\left( y_{j-1} \right) }\subset \Omega$, $j=1,\ldots N$. (Note that $x_0$ is the minimum point we have defined above). And also $y_n=q$, $y_0=x_0$. Using the same argument as above, we can show that $u=u\left( x_0 \right) $ on all of $B\left( y_j \right) $. 
+
+    So if we find a minimum $x_0$ in $\Omega$, then $u$ is constant in $\Omega$. But $u\in C\left( \overline{\Omega} \right) $, so $u\left( x \right) =u\left( x_0 \right) \forall x\in \overline{\Omega} $
+
+    (c): we consider the function $u-v$, clearly $u-v\in C^{2}\left( \Omega \right) \cap C\left( \overline{\Omega} \right) $. and $\Delta\left( u-v \right) \le 0$ in $\Omega$. We also know that $v\le u$ on $\overline{\Omega}$, so $u-v\ge 0$ on $\overline{\Omega}$. but $\min_{\overline{\Omega}}\left( u-v \right) =\min_{\partial \Omega}\left( u-v \right) \ge 0$. So $u-v\ge 0\implies u\ge v$ in $\overline{\Omega}$. 
+\end{document}

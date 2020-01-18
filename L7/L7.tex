@@ -1,0 +1,193 @@
+\documentclass[a4paper]{article}
+\title{L7}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	$\partial _t+\nabla \left( \rho u \right) =0$, $\rho\left( 0,x \right) =g\left( x \right) $
+
+	$u:\left( -\infty,\infty \right) \times \Omega\mapsto \mathbb{R}^{n}$ given , $\rho:\left( 0,\infty \right) \times \Omega\mapsto \mathbb{R}$
+
+	\begin{equation}
+		\text{CS}: \begin{cases}
+			X\left( t;x \right) =U\left( t,X\left( t;x\right)  \right) \\
+			X\left( 0;x \right) =x\in \Omega
+		\end{cases}
+	\end{equation} 
+	\begin{enumerate}
+		\item  $\nabla \cdot u=0:\rho\left( X\left( t;x \right)  \right) =g\left( x \right) \mapsto \rho\left( t,x \right) =g\left( X\left( 0;t,x \right)  \right) $ 
+		\item $\nabla u\neq 0 \quad \rho\left( t,X\left( t;x \right)  \right) =g\left( x \right) \exp\left( -\int_{0}^{t} \nabla \cdot u\left( \tau,X\left( \tau,x \right)  \right) d\tau  \right) $. Where the $\exp\left( \ldots \right) $ is the Jacobian. 
+	\end{enumerate}
+\begin{equation}
+	J\left( x,t \right) =\text{det}\left( \nabla X \right) \left( x,t \right) 
+\end{equation} 
+\begin{equation}
+	\partial_t J\left( x,t \right) =J\left( x,t \right) \nabla \cdot u\left( t,X\left( t;x \right)  \right) 
+\end{equation} 
+\begin{equation}
+	J\left( x,0 \right) =1
+\end{equation} 
+If $\nabla u=0 \implies J\left( x,t \right) =1 \forall t$. 
+
+\subsection{Numerical approximation of PDEs}%
+\label{sub:Numerical}
+Consider characteristic system
+\begin{equation}
+	\begin{cases}
+		u_t+cu_x=0\\
+		u\left( 0,x \right) =f\left( x \right) 
+	\end{cases}
+\end{equation} 
+We know $g\left( \overline{x} \right) $ , want to guess $g\left( \overline{x}+1 \right) $
+
+Know $g'\left( x \right) \implies g\left( \overline{x}+1 \right) =g\left( \overline{x} \right) +g'\left( \overline{x} \right) \times 1$
+
+Recall: given $u\left( x \right) $, $u'\left( x \right) = \lim_{n \to 0} \frac{u\left( x+h \right) -u\left( x \right) }{h}$. 
+
+Can take $u'\left( x_0 \right) \approx \frac{u\left( x+h \right) -u\left( x_0 \right) }{h}$. 
+
+if $u\in C^2$, $\frac{u\left( x_0+h \right) -u\left( x_0 \right) }{h}=u'\left( x_0 \right) +\frac{1}{2}u\prime \prime\left( \xi \right) h=u'\left( x_0 \right) +\mathcal{O}\left( h \right) $ 
+
+Where $\xi \in \left( x_0, x_0+h \right) $
+
+$\implies \left| u'\left( x_0-\frac{u\left( x_0+h \right) -u\left( x_0 \right) }{h} \right)  \right| \le Mh$ , this is the order 1 approximation. n is to power. 
+
+How to improve? 
+$u\left( x+h \right) =u\left( x \right) +u'\left( x \right) h+\frac{u''\left( x \right) }{2}h^2+\frac{u\prime\prime\prime \xi_1}{6}h^3 \xi_1\in \left( x,x+h \right) $
+
+$u\left( x-h \right) =u\left( x \right) -u'\left( x \right) h+\frac{u\prime\prime \left( x \right) }{2 }h^2-\frac{u\prime\prime\prime\left( \xi_2 \right) }{6}h^3 \xi_2\in \left( x-h,x \right) $, we add them up, and have 
+
+\begin{equation}
+	\frac{u\left( x+h \right) -u\left( x-h \right) }{2h}=u'\left( x \right) +\frac{1}{12}\left( u\prime\prime\prime\left( \xi_1 \right) +u\prime\prime\prime\left( \xi_2 \right)  \right) h^2
+\end{equation} 
+if $u\in C^3$, $\left| \frac{u\left( x+h \right) -u\left( x-h \right) }{2h} \right| \le Mh^2$ , which is 2nd order. 
+
+Transport equation :
+\begin{equation}
+	\begin{cases}
+		u_t+cu_x=0,x\in \mathbb{R}, t>0\\
+		u\left( 0,x \right) =f\left( x \right) , x\in \mathbb{R}
+	\end{cases}
+\end{equation} 
+Recall: $u\left( t,x \right) =f\left( x-ct \right) $, $u$ is continuous on line $x-ct=k$, $k\in \mathbb{R}$. 
+
+Note: $u$ is transportation of f by $\frac{k}{t} $ to right if $c>0$, left if $c<0$
+
+Figure missing 
+
+We choose a mesh$\left( t_j,x_i \right) $, $j\in N \cup \left\{ 0 \right\} ,i\in \mathbb{Z}$ . 
+
+\begin{equation}
+	\begin{cases}
+	\Delta x=x_{i+1}-x_i \forall i\\
+	\Delta t=t_{j+1}-t_{j} \forall j
+	\end{cases}
+\Big\} \text{mesh information}
+\end{equation} 
+How to compute $U_{ij}=U\left( x_i,t_j \right) $
+\begin{align*}
+	U_t\left( t_j,x_i \right) =\frac{U_{i,j+1}-U_{ij}}{\Delta t}\\
+	U_x\left( t_j,x_i \right) =\frac{U_{i+1,j}-U_{ij}}{\Delta x}
+\end{align*} 
+$u_{ij }$ depend on $u\left( k,0 \right) $ for $k\in \left\{ i,\ldots,i+j \right\} $
+\begin{align*}
+	\frac{U_{i,j+1}-U_{ij}}{\Delta t}+c \frac{U_{i+1,j}-U_{ij}}{\Delta x}=0\\
+	\iff u_{i,j+1}=-\sigma u_{i+1,j}+\left( \sigma+1 \right) u_{ij}
+\end{align*} 
+Where $\sigma=\frac{c\Delta t}{ \Delta i}$ note: the sign of c matters. 
+
+Simulations:
+\begin{enumerate}
+	\item $c>0$: very bad 'oscillation' not good approximation. 
+	\item $c<0$: not too negative: looks ok
+	\item $c<0$, very negative, bad approximation. 
+\end{enumerate}
+Case 1: $x-ct>k\implies t=\frac{q}{c }x+\tilde{k}$. This means that $u_{ij}$ has nothing to do with $u()t_{j,x_{i}}$. Because we are not using characteritics. 
+
+Case 2: $c<0$ Not too negative: $t=\frac{1}{c}x+k$, some inforamtion of characteristics will be used. 
+
+Case 3: $c<0$ and very negative, same problem as $c<0$. 
+
+In case 3, $x_{i}-xt_{j} \not\in \left[ x_{i},x_{i+1} \right]  $, this implies the foot of the characters doesn't belong to the interval $\left[ x_{i},x_{i+j} \right] $. 
+
+Case 3 precise c value: 
+\begin{align*}
+	x_{i }\le x_{i}-ct_{j}\le x_{i+j}& \iff 0\le -ct_j\le x_{i+j}-x_{i}\\
+	&\iff 0\le-cj\Delta t\le j\Delta x\\
+	&\iff 0\le -c\sigma \le 1\\
+	&-1\le \sigma\le 0
+\end{align*} 
+sicne $c<0$, $\implies \left|\sigma \right|\le 1$. 
+
+given $c$, $\frac{\Delta t}{\Delta x}\le \frac{1}{\left|c \right| }$ this means $\frac{\Delta x}{\Delta t }\ge c$
+
+'CFL condition' , -Courant-Friedrichs-Lewy' consition. It is a stability consition. 
+
+If $c>0$, $\frac{u_{ij+1}-u_{ij}}{\Delta t}=c \frac{u_{ij}-u_{i-1 j}}{\Delta x}$
+
+Convergence order? 1st order convergence. Improve? 
+\begin{equation}
+	\frac{u_{ij}+1-u_{ij}}{\Delta t }=c \frac{u_{i+1j}-u_{i-1j}}{2\Delta x}
+\end{equation} 
+This is always unstable, use inforamtion about initial domain is useless. 
+
+The two 1st order shcemes are the good ones. They are called upwind. 
+
+\paragraph{Conservation laws}
+\begin{equation}
+	u_{t}+\left( a\left( u \right)  \right) _{x}=0 \iff u_t+a'\left( u \right) u_x=0
+\end{equation} 
+For Burgers equaiton, $a\left( u \right) =\frac{1}{2}u^2$. We get 
+\begin{equation}
+	\begin{cases}
+		u_t+uu_x=0, t>0\\
+		u\left( 0,x \right) =f\left( x \right) ,x\in \mathbb{R}
+	\end{cases}
+\end{equation} 
+Using the method of characteristics
+\begin{gather*}
+	\frac{dx}{ds}=u, \frac{dt}{ds}=1\\
+	x\left( 0 \right) =\tau , t\left( 0 \right) =0, u\left( 0 \right) =f\left( \tau \right) \\
+x\left( s \right) =su+\tau, t(s)=s,u\left( s \right) =f\left( \tau \right) 
+\end{gather*} 
+\begin{equation}
+	\frac{d}{dt}\left( u\left( t,tf\left( \tau \right) +\tau \right)  \right) =u_t+f\left( \tau \right) u_x
+\end{equation} 
+\begin{equation}
+	u\left( t,f\left( \tau \right) +\tau \right) =u\left( 0,\tau \right) =f\left( \tau \right) 
+\end{equation} 
+$\implies$ f is transported through the lines $x-tf\left( \tau \right) =\tau$. 
+
+How to invert and solve for $\tau$? Implicit function theorem tells me that If 
+\begin{equation}
+	F\left( x,t,\tau \right) =0
+\end{equation} 
+Suppose $F \in C^{1}, \frac{\partial F}{\partial \tau} \not = 0$ at $\left( t_0,x_0,\tau_0 \right) $, then one can invert in a small neighbourhood of $t_0,x_0,\tau_0$. 
+
+\begin{example}
+	$F\left( x,y \right) =x^2-y=0$, solve for x, $\partial _xF =2x$ this means can solve everwhere except near $\left( 0,0 \right) :x= \pm \sqrt{y}  $ not a function. 
+\end{example}
+\end{document}

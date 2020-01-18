@@ -1,0 +1,125 @@
+\documentclass[a4paper]{article}
+\title{L6}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	Step2/3:
+	\begin{align*}
+		x&=\alpha_1\left( \tau,s \right) \\
+		y&=\alpha_2\left( \tau,s \right) \\
+		\left( u \right) _{z}&=\alpha_3\left( \tau,s \right) 
+	\end{align*} 
+	We invert
+	\begin{align*}
+		\tau=T\left( x,y \right) \\
+		s=S\left( x,y \right) \\
+		u\left( x,y \right) =\alpha_3\left( T\left( x,y \right) ,S\left( x,y \right)  \right) 
+	\end{align*} 
+	Call $u\left( x,y \right) =Z\left( T\left( x,y \right) ,S\left( x,y \right)  \right) $
+
+	Lecture 6:
+
+	We have $a\left( x,y,u \right) u_{x}+b\left( x,y,u \right) u_{y}=c\left( x,y,u \right) $
+	\begin{equation}
+		\begin{cases}
+			\alpha_1\left( d \right) =a\left( \alpha\left( s \right)  \right) , \alpha_1\left( 0 \right) =\gamma_1\left( \tau \right) \\
+			\alpha_2'\left( s \right) =b\left( `a\left( s \right)  \right) , \alpha_2\left( 0 \right) =\gamma_2\left( \tau \right) \\
+			\alpha_3'\left( s \right) =c\left( \alpha\left( s \right)  \right) , \alpha_3\left( 0 \right) =f\left( \tau \right) 
+		\end{cases}
+	\end{equation} 
+	Step 2/3: 'Inverting' $x=\alpha_1\left( s,\tau \right) $, $y=\alpha_2\left( s,\tau \right) $, $z-\alpha_3\left( s,\tau \right) $. We have $s=S\left( x,y \right) $, $\tau=T\left( x,y \right) $, $u\left( x,y \right) =\alpha_3\left( S\left( x,y \right) ,T\left( x,y \right)  \right) $. 
+
+	Notation: $U\left( x,y \right) =Z\left( S\left( x,y \right) ,T\left( x,y \right)  \right) $
+
+	Check characteristic system: 
+	$\frac{\partial U}{\partial x} =\frac{\partial Z}{\partial S} \frac{\partial S}{\partial x} +\frac{\partial Z}{\partial \tau} \frac{\partial T}{\partial x} $, $\frac{\partial U}{\partial y} =\frac{\partial Z}{\partial s} \frac{\partial S}{\partial y} +\frac{\partial Z}{\partial \tau} \frac{\partial T}{\partial y} $
+
+	then we have 
+	\begin{equation}\label{eq:L_6_1}
+		au_x+bu_y=\frac{\partial Z}{\partial S} \left( a \frac{\partial S }{\partial x} +b \frac{\partial S}{\partial y}  \right) +\frac{\partial Z}{\partial  \tau} \left( a \frac{\partial T}{\partial x} +b \frac{\partial T}{\partial y }  \right) 
+	\end{equation} 
+	since $x=\alpha_1\left( s,t \right) $ $y=\alpha_2\left( s,\tau \right) $
+
+	$\frac{\partial x}{\partial s} =a\left( \alpha\left( s \right)  \right) $, $\frac{\partial y}{\partial s} =b\left( \alpha\left( s \right)  \right) $
+	
+	Plug in equation \ref{eq:L_6_1}: $a \frac{\partial S}{\partial x} +b \frac{\partial S}{\partial y} =\frac{\partial X}{\partial S} \frac{\partial S}{\partial x} +\frac{\partial Y}{\partial S} \frac{\partial S}{\partial y} $
+
+	Equation \ref{eq:L_6_1} gives $au_x+bu_y=\frac{\partial Z}{\partial s} =c \implies u \text{ satisfies the PDE}$ 
+
+	\begin{theorem}[]
+		given $a,b,c$ $C^{1} $ function, $\gamma $ $C^{1} $ curve: $\left| \gamma'\left( \tau \right) \neq 0 \right| $ and $f \in C^{1}$, $a^2+bb^2\neq 0$ and let $\text{det} \begin{pmatrix} a\left( \gamma\left( \tau \right) , f\left( \tau \right)  \right) &b\left( \gamma\left( \tau \right) f\left( \tau \right)  \right) \\
+		\gamma_1'\left( \tau \right) &\gamma_2'\left( \tau \right) \end{pmatrix}\neq 0 \forall \tau$, 
+
+		Then there exists a unique \emph{local} $C^{1}$ solution defined in a neighbourhood of $\gamma\left( z \right) $. 
+	\end{theorem}
+	Recall: $u_t+au_x=0$ is the linear transport equation. In multidimension: let $u=u\left( t,x \right) :\left( 0,\infty \right) \times \Omega \mapsto  \mathbb{R}^{n}, \Omega s\subset \mathbb{R}^{n}$
+
+	Condiser : for a concentration $\rho=\rho\left( t,x \right) :\left( 0,\infty \right) \times \Omega \mapsto \mathbb{R}$ 
+	\begin{equation}
+		PDE\left( IVT \right) \begin{cases}
+			\partial_t\rho+\nabla \cdot \left( \rho u \right) =0\\
+			\rho\left( 0,x \right) =g\left( x \right) 
+		\end{cases}
+	\end{equation} 
+	Case1: $\nabla u=0$ (Incompressible flow)
+	
+	$\text{pde}\implies \partial_t \rho+u\cdot \nabla \rho=0$
+	
+	Figure missing
+
+	Incompressible: $\left| \left\{ g=1 \right\} \right|=\left| \left\{ \rho\left( t=10 \right) =1 \right\}  \right|   $
+	Where $\left\{  \right\}  $ denote the measure, the equality implies they have the same measure. 
+
+	Other point of view: look at particle
+
+	Figure missing
+
+	\begin{equation}
+		\begin{cases}
+			\frac{dx}{dt}=u\left( t,x \right) \\
+			x\left( 0,x_0 \right) =x_0
+		\end{cases}
+	\end{equation}
+	\begin{equation}
+		\frac{d}{dt}\rho\left( t,x\left( t,x_0 \right)  \right) =\left[ \partial_t\rho+\dot{x}\cdot \nabla \rho \right] \left( r,x\left( t,x_0 \right)  \right) 
+	\end{equation} 
+	\begin{equation}
+		\text{use CS}=\left[ \partial_t\rho+u\cdot \nabla \rho \right] \left( t,X\left( t,x_0 \right)  \right) \overbrace{=}^{\text{by PDE}}0
+	\end{equation} 
+	$\rho$ is constant on characteristics $\implies \rho\left( t,X\left( t,x_0 \right)  \right) =\rho\left( 0,\overbrace{X\left( 0,x_0 \right) }^{=x_0} \right) =g\left( x_0 \right)\implies \rho\left( t,x_0 \right) =g\left( X\left( \overbrace{0}^{final};\overbrace{t}^{\text{initial time}},x \right)  \right) $ 
+	$X\left( 0;t,x \right) $ is the inverse map of $X\left( t,X_0 \right) =X\left( t;0,x_0 \right) $
+
+	Case 2: $\nabla \cdot u\neq 0$
+	\begin{equation}
+		\partial_t \rho+u\cdot \nabla \rho=-\rho\cdot \nabla u
+	\end{equation} 
+	Then $\frac{d}{dt}\rho\left( t,x\left( t,x_0 \right)  \right) =-\rho\left( t,X\left( t,x_0 \right)  \right) \nabla \cdot u\left( t,X\left( t,x_0 \right)  \right) $
+
+	It is like $\dot{y}=-ay$
+
+	$\rho\left( t,X\left( t,x_0 \right)  \right) =\rho\left( 0,x_0 \right) \exp\left( -\int_{0}^{t} \nabla \cdot u\left( \tau,x_0 \right) d\tau \right) $. 
+\end{document}

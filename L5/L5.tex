@@ -1,0 +1,145 @@
+\documentclass[a4paper]{article}
+\title{L5}
+\author{Hanwen Jin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+% figure support
+\usepackage{import}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorm}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{remark}{Remark}
+\pdfsuppresswarningpagegroup=1
+
+\begin{document}
+	\maketitle
+	\begin{equation}\label{eq:L_5_Jacobian}
+		\begin{pmatrix} \frac{\partial \alpha_1}{\partial \tau} \left( \gamma\left( \tau \right)  \right)&\frac{\partial a_1}{\partial s} \left( \psi\left( \tau \right)  \right) \\\frac{\partial \alpha_2}{\partial \tau} \left( \gamma\left( \tau \right)  \right)   \end{pmatrix} \neq 0 \text{ forall $\tau$}
+	\end{equation} 
+	equation \ref{eq:L_5_Jacobian} implies that $\gamma\left( \tau \right) $ crosses transversely the characteristics. 
+
+	\begin{theorem}[]
+		$\Omega s\subset \mathbb{R}^2$ domain, $\gamma:I \mapsto \Gamma$, with $a,b,c\in C^{1}$, $\gamma\in C^{1}$, $\left|\gamma'\left( \tau \right) \neq 0 \right|, \tau\in I $, $a^2+b^2\neq 0$, given $f\in C^{1}\left( I \right) $, then
+		\begin{equation}
+			\begin{cases}
+				a\left( x,y \right) u_{x}+b\left( x,y \right) u_{y}=c\left( x,y \right) +\left( d\left( x,y \right) u\left( x,y \right)  \right) ^{*}\\
+				u\left( \gamma\left( \tau \right)  \right) =f\left( \tau \right) 
+			\end{cases}
+		\end{equation} 
+		has a solution if equation \ref{eq:L_5_Jacobian} was satisfied. 
+	\end{theorem}
+	How do we solve $\frac{d}{ds}u\left( \alpha\left( s \right)  \right) =c\left( \alpha\left( s \right)  \right) +dd\left( \alpha\left( s \right)  \right) u\left( \alpha\left( s \right)  \right) $? Use $y'=c+dy$. 
+	\begin{example}
+		Consider system 
+		\begin{equation}
+			\begin{cases}
+				-yu_{x}+xu_{y}=4xy, \qquad x>0, y\in \mathbb{R}\\
+				u\left( x,0 \right) =f\left( x \right) ,\qquad x>0
+			\end{cases}
+		\end{equation} 
+		$\alpha_1'\left( \tau,s \right) =-y=-\alpha_2\left( \tau,s \right) $, $\alpha_1\left( \tau,0 \right) =\tau$, 
+
+		$\alpha_2'\left( \tau,s \right) =\alpha_1\left( \psi,s \right) $, $\alpha_2\left( \tau,0 \right) =0$, then we have
+
+		\begin{equation}
+			\alpha'=\frac{d\alpha}{ds}=\begin{pmatrix} 0&-1\\1&0 \end{pmatrix} \alpha
+		\end{equation} 
+		Then we have 
+		\begin{equation}
+			\alpha\left( s,\tau \right) =\begin{pmatrix} \cos\left( s \right) &-\sin\left( s \right)\\sin\left( s \right) &\cos\left( s \right)   \end{pmatrix} \begin{pmatrix} \tau,0 \end{pmatrix} 
+		\end{equation} 
+		We differentiate the equation above, 
+		\begin{equation}
+			\alpha'\left( s,\tau \right) =\begin{pmatrix} -\sin\left( s \right) &-\cos\left( s \right) \\cos\left( s \right) &-\sin\left( s \right)  \end{pmatrix} \begin{pmatrix} \tau&0 \end{pmatrix} 
+		\end{equation} 
+		We find $\alpha_1\left( s,\tau \right) =\tau\cos\left( s \right) $, $\alpha_2=\tau\sin\left( s \right) $
+		\begin{equation}
+			\frac{d}{ds}u\left( \alpha\left( s \right)  \right) =4\tau^2\cos\left( s \right) \sin\left( s \right) 
+		\end{equation} 
+		\begin{equation}
+			u\left( \alpha\left( \tau,s \right)  \right) =u\left( \alpha\left( \tau,0 \right)  \right) +4\tau^2 \int_{0}^{s} \cos\left( \sigma \right) \sin\left( \sigma \right) d\sigma 
+		\end{equation} 
+		\begin{equation}
+			=f\left( \tau \right) -2\tau^2\cos^2\left( \sigma \right) \big|^{s}_{0}
+		\end{equation} 
+		Step2:
+		\begin{equation}
+			u\left(\alpha\left( \tau,s \right)   \right) =f\left( \tau \right) -2\tau^2\cos^2\left( s \right) +2\tau^2
+		\end{equation} 
+		Step3: $x=\tau\cos\left( s \right) $, $y=\tau\sin\left( s \right) $ implies $\tau=x^2+y^2$ and $s=\text{arctan}\left( \frac{y}{x} \right) $ for $x>0$. 
+		\begin{equation}
+			u\left( x,y \right) =f\left( \sqrt{x^2+y^2} -2x^2+2x^2+y^2 \right) 
+		\end{equation} 
+	\end{example}
+	\begin{example}
+		Transport, $a>0$. 
+		\begin{equation}
+			\begin{cases}
+			u_{t}+au_x=du, x\in \mathbb{R}, t\in \mathbb{R}\\
+			u\left( 0,x \right) =f\left( x \right) x\in \mathbb{R}, \gamma\left( \tau \right) =\left( 0,\tau \right) ^{T}
+			\end{cases}
+		\end{equation} 
+		Step 1: we know the characteristics are :$at-x=k$, $\alpha_1=t$, $\alpha_2=x$
+		\begin{equation}
+			\begin{cases}
+				\frac{dt}{ds}=1 \qquad t\left( 0 \right) =0\\
+				\frac{dx}{ds}=a\qquad x(0)=\tau
+			\end{cases}
+			\implies \begin{cases}
+				t=s\\
+				x=as+\tau\\
+				x=at+\tau
+			\end{cases}
+		\end{equation} 
+		Step2: $\frac{d}{ds}u\left( s,a\tau+s \right) =du\left( s,as+\tau \right) $
+		This is an ODE, if $g\left( s \right) =u\left( s,as+\tau \right) $. 
+		\begin{equation}
+			\frac{d g}{ds}= d g\implies e^{ds} g\left( 0 \right) 
+		\end{equation} 
+		\begin{equation}
+			u\left( s,as+\tau \right) =e^{ds}u\left( 0,\tau \right) 
+		\end{equation} 
+		\begin{equation}
+			u\left( t,x \right) =e^{dt}u\left( 0,x-at \right) =e^{dt}f\left( x-at \right) 
+		\end{equation} 
+		Note: d<0 and f is bounded function. 
+		\begin{equation}
+			\left|u\left( t,x \right)  \right| \le e^{dt} \text{max}_\tau \left|f\left( \tau \right)  \right|\overbrace{\to }^{t\to \infty} =0
+		\end{equation} 
+		d=0: $u\left( t,x \right) =f\left( x-at \right) \left( a>0 \right) $. 
+		Figure missing
+	\end{example}
+	Generilisation
+	\begin{equation}
+		a\left( x,y,u \right) u_{x}+b\left( x,y,u \right) u_{y}=c\left( x,y,u \right) 
+	\end{equation} 
+	This is a quasilinear equation with $u\left( \gamma\left( \tau \right)  \right) =f\left( \tau \right) $. 
+	
+	Step1: 3D characteristic system
+	\begin{equation}
+		\begin{cases}
+			\alpha_1'\left( s \right) =a\left( \alpha\left( s \right)  \right) \\
+			\alpha_2'\left( s \right) =b\left( \alpha\left( s \right)  \right) \\
+			\alpha_3'\left( s \right) =c\left( \alpha\left( s \right)  \right) 
+		\end{cases}\implies \begin{cases}
+		\alpha_1\left( 0 \right) =\gamma_1\left( \tau \right) \\
+		\alpha_2\left( 0 \right)=\gamma_2\left( \tau \right) \\
+		\alpha_3\left( 0 \right) =\gamma_3\left( \tau \right) 
+		\end{cases}
+	\end{equation} 
+	If $a,b,c \in C^{1}\left(\Omega \right) $, then $\exists ! $ solution $a_1\left( s,\tau \right) $, $\alpha_2\left( s,\tau \right) $, $\alpha_3\left( s,\tau \right) $ local solution. 
+\end{document}
